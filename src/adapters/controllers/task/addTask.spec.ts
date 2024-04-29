@@ -3,10 +3,29 @@ import {
   MongoManager,
   TaskMongoRepository,
 } from "../../../dataSources";
+import { Task } from "../../../entities/task";
+import { AddTask, AddTaskModel } from "../../../usecases";
 import { addTaskValidationCompositeFactory } from "../../factories";
+import { Validation } from "../../interfaces";
 import env from "../../presentations/api/config/env";
 import { AddTaskController } from "./addTask";
 
+class AddTaskStub implements AddTask {
+  async add(task: AddTaskModel): Promise<Task> {
+    return Promise.resolve({
+      id: "any_id",
+      title: "any_title",
+      description: "any_description",
+      date: "30/06/2024",
+    });
+  }
+}
+
+class ValidationStub implements Validation {
+  validate(data: any): void | Error {
+    return;
+  }
+}
 describe("AddTask Controller", () => {
   test("Deve chamar AddTask com valores corretos", async () => {
     const httpRequest = {
@@ -16,12 +35,10 @@ describe("AddTask Controller", () => {
         date: "30/06/2024",
       },
     };
-    await MongoManager.getInstance().connect(env.mongoUrl);
-    const taskMongoRepository = new TaskMongoRepository();
-    const dbAddTask = new DbAddTask(taskMongoRepository);
+
     const addTaskController = new AddTaskController(
-      dbAddTask,
-      addTaskValidationCompositeFactory()
+      new AddTaskStub(),
+      new ValidationStub()
     );
 
     const httpResponse = await addTaskController.handle(httpRequest);
