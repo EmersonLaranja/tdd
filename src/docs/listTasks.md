@@ -8,8 +8,8 @@
 # DbListTask
 
 [X]Deve chamar ListTasksRepository;
-[]Deve retornar tarefas em caso de sucesso;
-[]Deve ser lançado se ListTasksRepository for lançado;
+[X]Deve retornar tarefas em caso de sucesso;
+[X]Deve lançar um erro se ListTasksRepository lançar um erro;
 
 # TaskMongoRepository
 
