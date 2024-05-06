@@ -11,6 +11,7 @@ describe("TaskRoutes", () => {
   afterAll(async () => {
     await client.disconnect();
   });
+
   test("Deve listar 204 se a lista estiver vazia", async () => {
     await request(app).get("/api/tasks").expect(204);
   });
