@@ -13,4 +13,8 @@
 
 # TaskMongoRepository
 
-[]Deve retornar a tarefa em caso de sucesso
+[X]Deve retornar a tarefa em caso de sucesso
+
+# TaskRoutes - ListTasks
+
+[] Deve listar 204 se a lista estiver vazia
