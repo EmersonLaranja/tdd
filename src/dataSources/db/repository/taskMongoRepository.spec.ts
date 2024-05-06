@@ -19,6 +19,10 @@ describe("TaskMongoRepository", () => {
   afterAll(async () => {
     await client.disconnect();
   });
+
+  beforeEach(async () => {
+    await client.getCollection("tasks").deleteMany({});
+  });
   test("Deve retornar a tarefa em caso de sucesso", async () => {
     const sut = makeSut();
     await sut.add({
